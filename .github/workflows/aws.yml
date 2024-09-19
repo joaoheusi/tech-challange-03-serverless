@@ -1,8 +1,8 @@
 #Definicao do fluxo de trabalho
-name: CRUD usuários em Java - Deploy Ec2 
+name: AWS DEPLOY
 
 # Especifica que o workflow será acionado apenas quando 
-# houver um push na branch "master"
+# houver um push na branch 
 on:
   push:
     branches: 
