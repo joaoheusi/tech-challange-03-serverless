@@ -5,7 +5,10 @@ name: CRUD usuários em Java - Deploy Ec2
 # houver um push na branch "master"
 on:
   push:
-    branches: [ "master" ]
+    branches: 
+      - master
+      - main
+      - github-actions
 
 #Definicao dos jobs do workflow
 
