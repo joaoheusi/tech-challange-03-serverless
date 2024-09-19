@@ -17,7 +17,7 @@ on:
       - main
 
 env:
-  AWS_REGION: MY_AWS_REGION                   # set this to your preferred AWS region, e.g. us-west-1
+  AWS_REGION: us-east-1                   # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: MY_ECR_REPOSITORY           # set this to your Amazon ECR repository name
   ECS_SERVICE: MY_ECS_SERVICE                 # set this to your Amazon ECS service name
   ECS_CLUSTER: MY_ECS_CLUSTER                 # set this to your Amazon ECS cluster name
@@ -39,9 +39,9 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AKIAW3MEELUQ5F6YF2V3 }}
+          aws-secret-access-key: ${{ secrets.gn6ueG4TNBuH6Ymn2hNG56ytB0QQG0vZJfGArPqC }}
+          aws-region: ${{ env.us-east-1 }}
 
       - name: Login to Amazon ECR
         id: login-ecr
