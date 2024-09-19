@@ -21,7 +21,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3 # Action do proprio GitHub para clonar o repositório.
     - name: Compile
-      run: mvn clean package # Comando que será executado neste passo, responsável por compilar o projeto Java usando o Maven e gerar o pacote.
+      run: mvn clean package # Comando que será executado neste passo, responsável por compilar o projeto 
 
     - id: deploy
       uses: bitovi/github-actions-deploy-docker-to-ec2@v1.0.0 #Action para realizar o deploy de contêineres Docker em instâncias EC2.
