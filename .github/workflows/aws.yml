@@ -1,78 +1,29 @@
-#AINDA ESTÁ EM MANUTENÇÃO
+#Definicao do fluxo de trabalho
+name: CRUD usuários em Java - Deploy Ec2 
 
-# Esse fluxo de trabalho usa ações que não são certificadas pelo GitHub.
-# São fornecidas por terceiros e regidas por
-# termos de serviço, política de privacidade e suporte separados
-# online.
-
-# O GitHub recomenda fixar ações em um SHA de commit.
-# Para obter uma versão mais recente, você precisará atualizar o SHA.
-# Você também pode fazer referência a uma marca ou branch, mas a ação pode ser alterada sem aviso.
-
-name: Deploy to Amazon ECS
-
+# Especifica que o workflow será acionado apenas quando 
+# houver um push na branch "master"
 on:
   push:
-    branches:
-      - main
+    branches: [ "master" ]
 
-env:
-  AWS_REGION: us-east-1                   # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: MY_ECR_REPOSITORY           # set this to your Amazon ECR repository name
-  ECS_SERVICE: MY_ECS_SERVICE                 # set this to your Amazon ECS service name
-  ECS_CLUSTER: MY_ECS_CLUSTER                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION # set this to the path to your Amazon ECS task definition
-                                               # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: MY_CONTAINER_NAME           # set this to the name of the container in the
-                                               # containerDefinitions section of your task definition
+#Definicao dos jobs do workflow
 
 jobs:
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    environment: production
+  EC2-Deploy:
+    runs-on: ubuntu-latest # Definicao do ambiente
+    environment: #Define a configuração de ambiente para este job
+      name: AWS
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    - uses: actions/checkout@v3 # Action do proprio GitHub para clonar o repositório.
+    - name: Compile
+      run: mvn clean package # Comando que será executado neste passo, responsável por compilar o projeto Java usando o Maven e gerar o pacote.
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
-        with:
-          aws-access-key-id: ${{ secrets.AKIAW3MEELUQ5F6YF2V3 }}
-          aws-secret-access-key: ${{ secrets.gn6ueG4TNBuH6Ymn2hNG56ytB0QQG0vZJfGArPqC }}
-          aws-region: ${{ env.us-east-1 }}
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
-
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS.
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
-        with:
-          task-definition: ${{ env.ECS_TASK_DEFINITION }}
-          container-name: ${{ env.CONTAINER_NAME }}
-          image: ${{ steps.build-image.outputs.image }}
-
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@df9643053eda01f169e64a0e60233aacca83799a
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ${{ env.ECS_SERVICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
-          wait-for-service-stability: true
-'
+    - id: deploy
+      uses: bitovi/github-actions-deploy-docker-to-ec2@v1.0.0 #Action para realizar o deploy de contêineres Docker em instâncias EC2.
+      with:
+        checkout: false
+        aws_access_key_id: ${{secrets.AKIAW3MEELUQ5F6YF2V3}} # Define a chave de acesso da AWS para autenticação, armazenada nos secrets do repositório.
+        aws_secret_access_key: ${{secrets.gn6ueG4TNBuH6Ymn2hNG56ytB0QQG0vZJfGArPqC}} #Define a chave secreta de acesso da AWS para autenticação, armazenada nos secrets do repositório.
+        aws_elb_app_port: 8080 #Define a porta do aplicativo que será exposta no ELB (Elastic Load Balancer) da AWS.
