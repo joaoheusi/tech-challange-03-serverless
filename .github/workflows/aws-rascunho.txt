@@ -30,3 +30,5 @@ jobs:
         aws_access_key_id: ${{secrets.AKIAW3MEELUQ5F6YF2V3}} # Define a chave de acesso da AWS para autenticação, armazenada nos secrets do repositório.
         aws_secret_access_key: ${{secrets.gn6ueG4TNBuH6Ymn2hNG56ytB0QQG0vZJfGArPqC}} #Define a chave secreta de acesso da AWS para autenticação, armazenada nos secrets do repositório.
         aws_elb_app_port: 8080 #Define a porta do aplicativo que será exposta no ELB (Elastic Load Balancer) da AWS.
+
+
