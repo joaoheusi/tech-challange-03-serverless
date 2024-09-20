@@ -1,0 +1,48 @@
+name: Deploy to Cloud
+
+on:
+  push:
+    branches:
+      - main 
+      - master
+      - github-actions # ou o branch que você usa para deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the project
+        run: npm run build  # ajuste conforme necessário
+
+      - name: Deploy to Cloud
+        env:
+          CLOUD_API_KEY: ${{ secrets.CLOUD_API_KEY }}  # Configure seu segredo no GitHub
+        run: |
+          # Comandos para deploy, ex:
+          # aws s3 cp ./build s3://meu-bucket --recursive
+
+
+#Configurar segredos
+#Para segurança, você deve armazenar credenciais (como chaves de API) como segredos no GitHub. 
+#Vá em "Settings" do seu repositório > "Secrets and variables" > "Actions" e adicione as 
+#chaves necessárias, como CLOUD_API_KEY.
+
+#4. Testar o workflow
+#Faça um commit no branch especificado (neste caso, main). 
+#O GitHub Actions deve iniciar o workflow automaticamente.
+
+#5. Monitorar o deploy
+#Verifique a aba "Actions" do seu repositório para monitorar o progresso e 
+#depurar eventuais falhas.
