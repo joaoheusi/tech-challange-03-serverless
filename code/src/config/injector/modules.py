@@ -1,9 +1,8 @@
-from code.gateways.repositories.beanie.beanie_customers_repository import (
+from injector import Module, provider, singleton
+from src.gateways.repositories.beanie.beanie_customers_repository import (
     BeanieCustomersRepository,
 )
-from code.interfaces.repositories.customers_repository import CustomersRepository
-
-from injector import Module, provider, singleton
+from src.interfaces.repositories.customers_repository import CustomersRepository
 
 
 class CustomersRepositoryModule(Module):

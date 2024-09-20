@@ -1,8 +1,8 @@
-from code.entities.customer import Customer
 from uuid import uuid4
 
 from beanie import Document
 from pydantic import Field
+from src.entities.customer import Customer
 
 
 class CustomerDocument(Document, Customer):

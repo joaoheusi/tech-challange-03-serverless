@@ -1,10 +1,11 @@
-from code.entities.customer import Customer
-from code.gateways.repositories.beanie.documents.customer_document import (
+from typing import Union
+
+from src.entities.customer import Customer
+from src.gateways.repositories.beanie.documents.customer_document import (
     CustomerDocument,
 )
-from code.interfaces.repositories.customers_repository import CustomersRepository
-from code.types.dtos.create_customer_dto import CreateCustomerDto
-from typing import Union
+from src.interfaces.repositories.customers_repository import CustomersRepository
+from src.types.dtos.create_customer_dto import CreateCustomerDto
 
 
 class BeanieCustomersRepository(CustomersRepository):

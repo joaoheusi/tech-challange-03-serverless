@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
-from code.entities.customer import Customer
-from code.types.dtos.create_customer_dto import CreateCustomerDto
 from typing import Union
+
+from src.entities.customer import Customer
+from src.types.dtos.create_customer_dto import CreateCustomerDto
 
 
 class CustomersRepository(ABC):

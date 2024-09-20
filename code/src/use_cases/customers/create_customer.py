@@ -1,9 +1,8 @@
-from code.entities.customer import Customer
-from code.excecptions.application_exceptions import ApplicationExceptions
-from code.interfaces.repositories.customers_repository import CustomersRepository
-from code.types.dtos.create_customer_dto import CreateCustomerDto
-
 from injector import inject
+from src.entities.customer import Customer
+from src.excecptions.application_exceptions import ApplicationExceptions
+from src.interfaces.repositories.customers_repository import CustomersRepository
+from src.types.dtos.create_customer_dto import CreateCustomerDto
 
 
 class CreateCustomerUseCase:

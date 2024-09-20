@@ -1,9 +1,10 @@
-from code.config.injector.container import container
-from code.entities.customer import Customer
-from code.types.dtos.create_customer_dto import CreateCustomerDto
-from code.use_cases.customers.create_customer import CreateCustomerUseCase
-from code.use_cases.customers.get_customer import GetCustomerUseCase
 from typing import Union
+
+from src.config.injector.container import container
+from src.entities.customer import Customer
+from src.types.dtos.create_customer_dto import CreateCustomerDto
+from src.use_cases.customers.create_customer import CreateCustomerUseCase
+from src.use_cases.customers.get_customer import GetCustomerUseCase
 
 
 class CustomersUseCasesController:

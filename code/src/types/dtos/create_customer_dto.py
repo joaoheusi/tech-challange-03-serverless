@@ -1,9 +1,9 @@
-from code.utils.validate_cpf import validate_cpf
-from code.utils.validate_email import validate_email
 from datetime import datetime
 from typing import Union
 
 from pydantic import BaseModel, field_validator
+from src.utils.validate_cpf import validate_cpf
+from src.utils.validate_email import validate_email
 
 
 class CreateCustomerDto(BaseModel):
