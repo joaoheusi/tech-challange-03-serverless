@@ -29,7 +29,8 @@ jobs:
           terraform_version: 1.5.0 # You can specify the Terraform version you're using
 
       - name: Initialize Terraform
-
+        env:
+          TF_INPUT: "false"
         run: yes | terraform init -migrate-state -lock-timeout=5m
 
       - name: Plan Terraform changes
