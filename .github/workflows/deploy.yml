@@ -35,6 +35,9 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: terraform init -migrate-state -lock-timeout=5m
 
+      - name: Import ECR Repository if it exists
+        run: terraform import aws_ecr_repository.api lambda-api || echo "Repository does not exist, continue..."
+
       - name: Plan Terraform changes
         env:
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
