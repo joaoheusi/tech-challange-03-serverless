@@ -2,6 +2,13 @@ terraform {
   required_providers {
     aws = { source = "hashicorp/aws", version = "5.17.0" }
   }
+  backend "s3" {
+    bucket         = "your-terraform-state-bucket"
+    key            = "lambda-api/terraform.tfstate"
+    region         = "sa-east-1"
+    encrypt        = true
+    dynamodb_table = "terraform-locks"
+  }
 }
 
 provider "aws" {
