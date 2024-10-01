@@ -30,14 +30,14 @@ jobs:
 
       - name: Initialize Terraform
 
-        run: terraform init -migrate-state -lock-timeout=5m
-        
+        run: yes | terraform init -migrate-state -lock-timeout=5m
+
       - name: Plan Terraform changes
         run: terraform plan -out=tfplan
 
       - name: Apply Terraform changes
         if: github.ref == 'refs/heads/main'
-        run: yes | terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve tfplan
 
       - name: Log in to Amazon ECR
         id: ecr-login
