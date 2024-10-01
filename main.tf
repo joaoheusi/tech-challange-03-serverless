@@ -3,7 +3,7 @@ terraform {
     aws = { source = "hashicorp/aws", version = "5.17.0" }
   }
   backend "s3" {
-    bucket         = "your-terraform-state-bucket-fiap-joao"
+    bucket         = "your-terraform-state-bucket-fiap"
     key            = "lambda-api/terraform.tfstate"
     region         = "sa-east-1"
     encrypt        = true
