@@ -51,6 +51,11 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve tfplan
 
+      - name: Create ECR repository if it does not exist
+        run: |
+          aws ecr describe-repositories --repository-names lambda-api || \
+          aws ecr create-repository --repository-name lambda-api
+
       - name: Log in to Amazon ECR
         id: ecr-login
         run: |
