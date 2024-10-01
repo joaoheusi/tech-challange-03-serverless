@@ -37,7 +37,7 @@ jobs:
 
       - name: Apply Terraform changes
         if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve tfplan
+        run: yes | terraform apply -auto-approve tfplan
 
       - name: Log in to Amazon ECR
         id: ecr-login
