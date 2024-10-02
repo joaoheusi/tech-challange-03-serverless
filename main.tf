@@ -12,10 +12,10 @@ terraform {
 }
 
 provider "aws" {
-  profile = "default"
-  region  = "sa-east-1"
+  region     = var.aws_region     # You can set this as a variable
+  access_key = var.aws_access_key # You can set this as a variable
+  secret_key = var.aws_secret_key # You can set this as a variable
 }
-
 # --- ECR ---
 
 

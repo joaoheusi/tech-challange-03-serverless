@@ -2,6 +2,7 @@
 /.env
 /.venv
 /venv/
+/code/.env
 **/__pycache__/
 **/.mypy_cache/
 /.pytest_cache/
